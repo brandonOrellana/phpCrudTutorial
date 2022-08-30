@@ -34,19 +34,54 @@ class User extends DataBase{
         $stmt=$this->conn->prepare($sql);
         $stmt->execute();
         if($stmt->rowCount()>0){
-            $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $results=[];
+        }
+        return $results;
+    } 
+
+    // funtion to get single row
+    public function getRow($field,$value){
+        $sql="SELECT * FROM {$this->tableName} WHERE {$field}=:{$field}";
+        $stmt=$this->conn->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount()>0){
+            $result=$stmt->fetch(PDO::FETCH_ASSOC);
         }else{
             $result=[];
         }
         return $result;
-    } 
-
-    // funtion to get single row
-
+    }
     // funtion to count of rows
+    public function getCount(){
+        $sql="SELECT COUNT(*) as pcount FROM {$this->tableName}";
+        $stmt=$this->conn->prepare($sql);
+        $stmt->execute();
+        $result=$stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['pcount'];
+    }
 
     // funtion to upload photo 
+    public function uploadPhoto($file){
+        $fileTempPath=$file['tmp_name'];
+        $fileName=$file['name'];
+        $fileType=$file['type'];
+        $fileNameCmps= explode('.',$fileName);
+        $fileExtension=strtolower(end($fileNameCmps));
+        $newFileName=md5(time().$fileName) . '.' .  $fileExtension;
+        $allowedExtn=["png","jpg","jpeg"];
 
+        if(in_array($fileExtension,$allowedExtn)){
+            $uploadFileDir=getcwd().'/uploads/';
+            $destFilepath= $uploadFileDir . $newFileName;
+            if(move_uploaded_file($fileTempPath,$destFilepath)){
+                return $newFileName;
+            }
+        }
+
+    }
     // funtion to update
 
     // funtion to delete

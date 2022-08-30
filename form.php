@@ -58,6 +58,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-dark">Submit</button>
+                            <!-- 2 input fields firsdt for adding and next for update,delete or viewing profile-->
                         </div>
                     </form>
                 </div>
