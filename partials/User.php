@@ -8,13 +8,13 @@ class User extends DataBase{
     public function add($data){
         if(!empty($data)){
             $fileds=$placeholder=[];
-            foreach ($variable as $field => $value) {
+            foreach ($data as $field => $value) {
                 $fileds[]=$field;
-                $placeholder[]=":{field}";
+                $placeholder[]=":{$field}";
             }
         }
         //$sql="INSERT INTO {$this->tableName} (pname,email,phone) VALUES (:pname,:email,:phone)";
-        $sql="INSERT INTO {$this->tableName} (". implode(',',$fileds). ") VALUES (". implode(',',$placeholder).")";
+        $sql="INSERT INTO {$this->tableName} (".implode(',',$fileds).") VALUES (".implode(',',$placeholder).")";
         $stmt=$this->conn->prepare($sql);
         try {
             $this->conn->beginTransaction();
@@ -23,7 +23,8 @@ class User extends DataBase{
             $this->conn->commit();
             return $lastInsertedId;
         } catch (PDOException $e) {
-            echo "Error:".$e->getMessage();
+            echo var_dump($data);
+            echo "Error add:".$e->getMessage();
             $this->conn->rollback();
         }
     }
