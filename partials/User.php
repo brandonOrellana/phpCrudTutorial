@@ -31,7 +31,7 @@ class User extends DataBase{
 
     // funtion to get rows
     public function getRows($start=0,$limit=4){
-        $sql="SELECT * FROM {$this->tableName} ORDER BY DESC LIMIT {$start},{$limit}";
+        $sql="SELECT * FROM {$this->tableName} ORDER BY id DESC LIMIT {$start},{$limit}";
         $stmt=$this->conn->prepare($sql);
         $stmt->execute();
         if($stmt->rowCount()>0){
@@ -46,7 +46,7 @@ class User extends DataBase{
     public function getRow($field,$value){
         $sql="SELECT * FROM {$this->tableName} WHERE {$field}=:{$field}";
         $stmt=$this->conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute($value);
         if($stmt->rowCount()>0){
             $result=$stmt->fetch(PDO::FETCH_ASSOC);
         }else{
