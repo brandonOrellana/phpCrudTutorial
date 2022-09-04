@@ -1,7 +1,4 @@
 <?php
-    //print_r($_FILES);
-    //die;
-
 
     $action=$_REQUEST['action'];
 
@@ -15,7 +12,11 @@
         $pname=$_POST['username'];
         $email=$_POST['email'];
         $mobile=$_POST['mobile'];
-        $photo=$_POST['photo'];
+        
+        if(isset($_POST['photo'])){
+            $photo=$_POST['photo'];
+        }
+
         $playerid=(!empty($_POST['userId']))? $_POST['userId']: "";
         $imagename="";
         if(!empty($photo['name'])){
@@ -24,13 +25,13 @@
                 'name'=>$pname,
                 'email'=>$email,
                 'mobile'=>$mobile,
-                'photo'=>$imagename,
+                'photo'=>$imagename
             ];
         }else{
             $playerData=[
                 'name'=>$pname,
                 'email'=>$email,
-                'mobile'=>$mobile,
+                'mobile'=>$mobile
             ];
         }
         $playerid = $obj->add($playerData);

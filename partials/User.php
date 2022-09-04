@@ -46,7 +46,7 @@ class User extends DataBase{
     public function getRow($field,$value){
         $sql="SELECT * FROM {$this->tableName} WHERE {$field}=:{$field}";
         $stmt=$this->conn->prepare($sql);
-        $stmt->execute($value);
+        $stmt->execute([":{$field}" => $value]);
         if($stmt->rowCount()>0){
             $result=$stmt->fetch(PDO::FETCH_ASSOC);
         }else{
