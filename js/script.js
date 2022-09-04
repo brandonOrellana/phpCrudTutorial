@@ -15,6 +15,10 @@ $(document).ready(function () {
             },
             success:function(response){
                 console.log(response);
+                if(response){
+                    $("#usermodal").modal("hiden");
+                    $("#addform")[0].reset();
+                }
             },
             error:function(request,error){
                 console.log(arguments);

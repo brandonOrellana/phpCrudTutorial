@@ -12,11 +12,7 @@
         $pname=$_POST['username'];
         $email=$_POST['email'];
         $mobile=$_POST['mobile'];
-        
-        if(isset($_POST['photo'])){
-            $photo=$_POST['photo'];
-        }
-
+        $photo=$_FILES['photo'];
         $playerid=(!empty($_POST['userId']))? $_POST['userId']: "";
         $imagename="";
         if(!empty($photo['name'])){
