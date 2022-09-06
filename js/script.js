@@ -26,4 +26,26 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    // get users function
+    function getusers(){
+        var pageno = $("#currentpage").val();
+        $.ajax({
+            url:"/phpcrud/ajax.php",
+            type:"GET",
+            dataType:"json",
+            data:{page:pageno,action:'getallusers'},
+            beforeSend:function(){
+                console.log("waiting...data is loading");
+            },
+            success:function(row){
+                console.log(row);
+            },
+            error:function(request,error){
+                console.log(arguments);
+                console.log("El Error es:"+ error);
+            }
+        })
+    }
 });
