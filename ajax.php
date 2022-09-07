@@ -34,16 +34,16 @@
 
         if(!empty($playerid)){
             $player = $obj->getRow('id',$playerid);
-            echo json_encode($player);
+            echo json_encode($player);//tira error si ingreasa warning
             exit();
         }
     }
 
     // getcount function and getallusers action
-
     if($action=='getallusers'){
         $page=(!empty($_GET['page']))?$_GET['page']:1;
         $limit = 4;
+        //paginas = 1*4=4,2*4=8
         $start=($page-1)*$limit;
         $users = $obj->getRows($start,$limit);
         if(!empty($users)){
